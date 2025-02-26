@@ -30,6 +30,7 @@
         edaTools = with inputs.lowrisc-it.packages.x86_64-linux; [vcs vivado xcelium];
         extraPkgs = with inputs.nixpkgs.legacyPackages.x86_64-linux; [google-cloud-sdk rustup rust-analyzer zsh];
       };
+      cheriot = inputs.lowrisc-nix.devShells.x86_64-linux.cheriot;
     };
   };
 }
