@@ -1,16 +1,15 @@
 {
   description = "Environment for building, synthesizing and simulating Opentitan.";
   inputs = {
-    # Official NixOS package source, using lowrisc-nix here
+    # Official NixOS package source follows the one used in lowrisc-it
     nixpkgs.follows = "lowrisc-it/nixpkgs";
 
     lowrisc-it = {
       url = "git+ssh://git@github.com/lowrisc/lowrisc-it";
     };
 
-    lowrisc-nix = {
-      follows = "lowrisc-it/lowrisc-nix";
-    };
+    # lowrisc-nix is already included in lowrisc-it
+    lowrisc-nix.follows = "lowrisc-it/lowrisc-nix";
   };
 
   nixConfig = {
