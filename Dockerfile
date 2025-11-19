@@ -61,9 +61,15 @@ RUN touch setup.sh \
 ENV SHELL /bin/bash
 CMD bash
 
+# Building container:
+# podman build --tag 'ibex-dv' .
+
+# Running container:
+# podman run -it -v /nas/lowrisc/tools:/nas/lowrisc/tools:ro --rm localhost/ibex-dv:latest
+
+# Inside the container run:
 # source setup.sh
 # source .venv/bin/activate
 # module load cadence/xcelium/latest
 # cd dv/uvm/core_ibex
 # make --keep-going IBEX_CONFIG=opentitan SIMULATOR=xlm ISS=spike TEST=riscv_pmp_basic_test WAVES=0 ITERATIONS=1
-
