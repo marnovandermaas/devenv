@@ -35,7 +35,7 @@ RUN apt install -y csh ksh libxrender1 libsm6 libxtst6 libxi6 \
     && apt install -y pkg-config
 
 # Clone Ibex repository.
-RUN git clone https://github.com/lowRISC/ibex.git
+RUN git clone -b pmp_lsb https://github.com/marnovandermaas/ibex.git
 WORKDIR ibex
 
 # Python virtual environment.
