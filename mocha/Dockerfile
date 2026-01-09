@@ -37,7 +37,7 @@ CMD bash
 # podman build --tag 'mocha' .
 
 # Running container:
-# podman run -it -v /nas/lowrisc/tools:/nas/lowrisc/tools:ro /home/mvdmaas/repos/mocha:/mocha:rw --rm localhost/mocha:latest
+# podman run -it -v /nas/lowrisc/tools:/nas/lowrisc/tools:ro -v /home/mvdmaas/repos/mocha:/mocha:rw --rm localhost/mocha:latest
 
 # Inside the container run:
 # source setup.sh
@@ -46,4 +46,4 @@ CMD bash
 # uv sync --all-extras
 # source .venv/bin/activate
 # module load cadence/xcelium/latest
-# dvsim hw/vendor/lowrisc_ip/ip/uart/dv/uart_sim_cfg.hjson -i uart_smoke --tool xcelium
+# dvsim hw/vendor/lowrisc_ip/ip/uart/dv/uart_sim_cfg.hjson -i uart_smoke -r 1 --tool xcelium
