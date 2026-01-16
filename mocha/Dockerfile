@@ -47,4 +47,4 @@ CMD bash
 # source .venv/bin/activate
 # module load cadence/xcelium/latest
 # dvsim hw/vendor/lowrisc_ip/ip/uart/dv/uart_sim_cfg.hjson -i uart_smoke -r 1 --tool xcelium
-# dvsim hw/top_chip/dv/top_chip_sim_cfgs.hjson --tool xcelium
+# dvsim hw/top_chip/dv/mocha_sim_cfgs.hjson --tool xcelium
