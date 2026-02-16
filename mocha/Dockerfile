@@ -13,6 +13,16 @@ RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime \
     && dpkg-reconfigure --frontend noninteractive tzdata \
     && apt install -y environment-modules
 
+# Vivado needs a language pack.
+RUN apt install -y language-pack-en \
+    && locale-gen en_US \
+    && update-locale LANG=en_US
+
+# Install Vivado dependencies.
+RUN apt update \
+    && apt upgrade -y \
+    && apt install -y libtinfo5
+
 # Dependencies for dev shell.
 RUN apt install -y csh ksh libxrender1 libsm6 libxtst6 libxi6 \
     && apt install -y pkg-config
