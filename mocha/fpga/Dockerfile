@@ -65,7 +65,7 @@ WORKDIR /work
 # Change user
 USER 1000:1000
 
-# RUN mkdir /home/ray/.config
+# RUN mkdir /home/mvdmaas/.config
 
 # Mocha build packages
 RUN python3 -m pip install --upgrade pip
@@ -95,12 +95,12 @@ RUN pip3 install \
     "svgwrite>=1.4.3" \
     "pyelftools>=0.32"
 
-# RUN mkdir /home/ray/.config/nix
-# RUN echo 'extra-experimental-features = flakes nix-command' > /home/ray/.config/nix/nix.conf
-# RUN echo 'substituters = https://nix-cache.lowrisc.org/public/ https://cache.nixos.org/' >> /home/ray/.config/nix/nix.conf
-# RUN echo 'trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-cache.lowrisc.org-public-1:O6JLD0yXzaJDPiQW1meVu32JIDViuaPtGDfjlOopU7o=' >> /home/ray/.config/nix/nix.conf
-# RUN echo 'trusted-substituters =' >> /home/ray/.config/nix/nix.conf
-# RUN echo 'trusted-users = root root @sudo ray' >> /home/ray/.config/nix/nix.conf
+# RUN mkdir /home/mvdmaas/.config/nix
+# RUN echo 'extra-experimental-features = flakes nix-command' > /home/mvdmaas/.config/nix/nix.conf
+# RUN echo 'substituters = https://nix-cache.lowrisc.org/public/ https://cache.nixos.org/' >> /home/mvdmaas/.config/nix/nix.conf
+# RUN echo 'trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-cache.lowrisc.org-public-1:O6JLD0yXzaJDPiQW1meVu32JIDViuaPtGDfjlOopU7o=' >> /home/mvdmaas/.config/nix/nix.conf
+# RUN echo 'trusted-substituters =' >> /home/mvdmaas/.config/nix/nix.conf
+# RUN echo 'trusted-users = root root @sudo mvdmaas' >> /home/mvdmaas/.config/nix/nix.conf
 
 # RUN source /etc/bashrc && nix develop github:lowRISC/mocha --no-write-lock-file
 # RUN source nix develop github:lowRISC/mocha --no-write-lock-file
@@ -116,5 +116,6 @@ ENV XILINXD_LICENSE_FILE="2100@xilinx-license.services.lowrisc.dev"
 ENTRYPOINT ["bash"]
 
 # Run the following commands:
-# podman build --tag vivado-env:latest
-# podman run -it -v /nas/lowrisc/tools:/nas/lowrisc/tools:ro -v /home/mvdmaas/repos/mocha:/work:U --rm localhost/vivado-env:latest
+# podman build --tag 'vivado-env' .
+# podman run -it -v /nas/lowrisc/tools:/nas/lowrisc/tools:ro -v /home/mvdmaas/repos/mocha:/work:U --userns keep-id:uid=1000:gid=1000 --rm localhost/vivado-env:latest
+# fusesoc --cores-root=. run --target=synth --setup --build lowrisc:mocha:chip_mocha_genesys2 --RomInitFile=$PWD/build/sw/device/bootrom/bootrom_scrambled.vmem
