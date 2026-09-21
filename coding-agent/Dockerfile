@@ -29,4 +29,4 @@ CMD ["claude"]
 # podman volume create coding-agent-home
 
 # Running container:
-# podman run -it --rm --volume "$(pwd)":/workspace:rw,Z --volume coding-agent-home:/home/coag:rw,z localhost/coding-agent:latest
+# podman run -it --rm --userns keep-id:uid=1000:gid=1000 --volume "$(pwd)":/workspace:rw,Z,U --volume coding-agent-home:/home/coag:rw,z localhost/coding-agent:latest
