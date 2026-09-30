@@ -24,7 +24,7 @@ USER coag
 WORKDIR /workspace
 
 # Enter claude
-CMD ["claude"]
+CMD ["claude","--permission-mode","auto"]
 
 # Building container:
 # podman build --tag 'coding-agent' .
