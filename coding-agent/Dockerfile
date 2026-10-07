@@ -33,4 +33,4 @@ CMD ["claude","--permission-mode","auto"]
 # podman volume create coding-agent-home
 
 # Running container:
-# podman run -it --rm --userns keep-id:uid=1000,gid=1000 --volume "$(pwd)":/workspace:rw,Z,U --volume coding-agent-home:/home/coag:rw,z --volume /etc/claude-code/:/etc/claude-code:ro localhost/coding-agent:latest
+# podman run -it --rm --userns keep-id:uid=1000,gid=1000 --volume "$(pwd)":/workspace:rw,Z,U --volume coding-agent-home:/home/coag:rw,z --volume ~/podman/claude-code/:/etc/claude-code:ro localhost/coding-agent:latest
