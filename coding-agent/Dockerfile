@@ -1,15 +1,17 @@
 FROM ubuntu:22.04
 
 # Apt update and install packages:
+# - bubblewrap and socat for sandboxing
 # - curl to download installer
 # - jq for status line
 # - git to interact with repos
 RUN apt update \
     && apt upgrade -y \
+    && apt install -y bubblewrap \
     && apt install -y curl \
     && apt install -y jq \
     && apt install -y git \
-    && apt install -y npm
+    && apt install -y socat
 
 # Install as root, then relocate to a system path.
 RUN curl -fsSL https://claude.ai/install.sh | bash \
@@ -33,4 +35,4 @@ CMD ["claude","--permission-mode","auto"]
 # podman volume create coding-agent-home
 
 # Running container:
-# podman run -it --rm --userns keep-id:uid=1000,gid=1000 --volume "$(pwd)":/workspace:rw,Z,U --volume coding-agent-home:/home/coag:rw,z --volume ~/podman/claude-code/:/etc/claude-code:ro localhost/coding-agent:latest
+# podman run -it --rm --userns keep-id:uid=1000,gid=1000 --volume "$(pwd)":/workspace:rw,Z,U --volume "$(pwd)/.git":/workspace/.git:ro --volume coding-agent-home:/home/coag:rw,z --volume ~/podman/claude-code/:/etc/claude-code:ro --cap-drop=ALL --security-opt no-new-privileges localhost/coding-agent:latest
