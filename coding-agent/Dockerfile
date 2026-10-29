@@ -5,20 +5,24 @@ FROM ubuntu:22.04
 # - curl to download installer
 # - jq for status line
 # - git to interact with repos
+# - xz needed for Nix
 RUN apt update \
     && apt upgrade -y \
     && apt install -y bubblewrap \
     && apt install -y curl \
     && apt install -y jq \
     && apt install -y git \
-    && apt install -y socat
+    && apt install -y socat \
+    && apt install -y xz-utils
 
 # Install as root, then relocate to a system path.
 RUN curl -fsSL https://claude.ai/install.sh | bash \
     && cp /root/.local/bin/claude /usr/local/bin/claude \
     && chmod 755 /usr/local/bin/claude \
     && rm -rf /root/.local
-RUN which claude
+
+# Install Nix
+RUN curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh -s -- --daemon
 
 RUN useradd --create-home --uid 1000 --base-dir /home coag
 USER coag
