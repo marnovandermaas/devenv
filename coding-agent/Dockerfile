@@ -24,6 +24,7 @@ RUN curl -fsSL https://claude.ai/install.sh | bash \
 
 # Create coag user and switch to it.
 RUN useradd --create-home --uid 1000 --base-dir /home coag
+RUN mkdir -m 0755 /nix && chown coag /nix
 USER coag
 
 # Install Nix in single-user mode.
@@ -32,7 +33,7 @@ RUN curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh -s -- 
 WORKDIR /workspace
 
 # Enter claude in auto mode.
-CMD ["claude","--permission-mode","auto"]
+CMD ["claude", "--permission-mode", "auto"]
 
 # Building container:
 # podman build --tag 'coding-agent' .
@@ -41,4 +42,4 @@ CMD ["claude","--permission-mode","auto"]
 # podman volume create coding-agent-home
 
 # Running container:
-# podman run -it --rm --userns keep-id:uid=1000,gid=1000 --volume "$(pwd)":/workspace:rw,Z,U --volume "$(pwd)/.git":/workspace/.git:ro --volume coding-agent-home:/home/coag:rw,z --volume ~/podman/claude-code/:/etc/claude-code:ro --cap-drop=ALL --security-opt no-new-privileges localhost/coding-agent:latest
+# podman run -it --rm --userns keep-id:uid=1000,gid=1000 --volume "$(pwd)":/workspace:rw,Z,U --volume "$(pwd)/.git":/workspace/.git:ro --volume coding-agent-home:/home/coag/.claude:rw,z --volume ~/podman/claude.json:/home/coag/.claude.json:rw,z --volume ~/podman/claude-code/:/etc/claude-code:ro --cap-drop=ALL --security-opt no-new-privileges localhost/coding-agent:latest
