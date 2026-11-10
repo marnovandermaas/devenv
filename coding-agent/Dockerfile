@@ -10,6 +10,7 @@ RUN apt update \
     && apt upgrade -y \
     && apt install -y bubblewrap \
     && apt install -y curl \
+    && apt install -y gtkwave \
     && apt install -y jq \
     && apt install -y git \
     && apt install -y socat \
