@@ -29,6 +29,8 @@ USER coag
 
 # Install Nix in single-user mode.
 RUN curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh -s -- --no-daemon
+RUN mkdir -p /home/coag/.config/nix
+RUN echo "experimental-features = nix-command flakes" > /home/coag/.config/nix/nix.conf
 
 WORKDIR /workspace
 
