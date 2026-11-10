@@ -22,15 +22,16 @@ RUN curl -fsSL https://claude.ai/install.sh | bash \
     && chmod 755 /usr/local/bin/claude \
     && rm -rf /root/.local
 
-# Install Nix
-RUN curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh -s -- --daemon
-
+# Create coag user and switch to it.
 RUN useradd --create-home --uid 1000 --base-dir /home coag
 USER coag
 
+# Install Nix in single-user mode.
+RUN curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh -s -- --no-daemon
+
 WORKDIR /workspace
 
-# Enter claude
+# Enter claude in auto mode.
 CMD ["claude","--permission-mode","auto"]
 
 # Building container:
