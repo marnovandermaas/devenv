@@ -42,9 +42,10 @@ CMD ["claude", "--permission-mode", "auto"]
 
 # Add persistent home so that you only have to log in on the first session:
 # podman volume create coding-agent-home
+# podman volume create nix-store
 # mkdir -p ~/podman/claude-code
 # touch ~/podman/claude.json
 # #Copy managed settings into ~/podman/claude-code directory
 
 # Running container:
-# podman run -it --rm --userns keep-id:uid=1000,gid=1000 --volume "$(pwd)":/workspace:rw,Z --volume "$(pwd)/.git":/workspace/.git:ro --volume coding-agent-home:/home/coag/.claude:rw,z --volume ~/podman/claude.json:/home/coag/.claude.json:rw,z --volume ~/podman/claude-code/:/etc/claude-code:ro --cap-drop=ALL --security-opt no-new-privileges localhost/coding-agent:latest
+# podman run -it --rm --userns keep-id:uid=1000,gid=1000 --volume "$(pwd)":/workspace:rw,Z --volume "$(pwd)/.git":/workspace/.git:ro --volume coding-agent-home:/home/coag/.claude:rw,z --volume ~/podman/claude.json:/home/coag/.claude.json:rw,z --volume ~/podman/claude-code/:/etc/claude-code:ro --volume nix-store:/nix:rw,z --cap-drop=ALL --security-opt no-new-privileges localhost/coding-agent:latest
